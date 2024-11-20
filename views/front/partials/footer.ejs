@@ -1,0 +1,57 @@
+<footer class="py-6 text-sm bg-line-blue text-white">
+  <div class="container mx-auto flex flex-col lg:flex-row justify-between text-center lg:text-left space-y-4 lg:space-y-0">
+
+    <!-- Section gauche : Actualités et Informations -->
+    <div class="flex flex-col lg:flex-row lg:space-x-52">
+      <!-- Actualités -->
+      <div class="flex flex-col items-center lg:items-start space-y-2">
+        <h4>Actualités</h4>
+        <a href="/presse" class="hover:underline">Presse</a>
+        <a href="/championnat" class="hover:underline">Championnat</a>
+        <a href="/medias" class="hover:underline">Médias</a>
+      </div>
+
+      <!-- Informations -->
+      <div class="flex flex-col items-center mt-4 md:mt-0 lg:items-start space-y-2">
+        <h4>Informations</h4>
+        <a href="/contact" class="hover:underline">Contact</a>
+        <a href="/inscription" class="hover:underline">Inscription</a>
+        <a href="/joueurs" class="hover:underline">Joueurs</a>
+      </div>
+    </div>
+
+    <!-- Section droite : Infos de contact -->
+    <div class="flex flex-col items-center lg:items-end lg:self-end space-y-2">
+      <% if (goelandClub) { %>
+        <div>
+          <p><%= goelandClub.addressDetails %></p>
+          <p>
+            <a href="https://www.google.com/maps/search/?api=1&query=<%= encodeURIComponent('Goêlands de Biarritz') %>"
+              target="_blank" class="hover:underline">
+              <%= goelandClub.adress %>, <%= goelandClub.cp %> <%= goelandClub.city %>
+            </a>
+          </p>
+          <p>
+            <a href="tel:<%= goelandClub.phone %>" target="_blank" class="hover:underline">
+              <%= goelandClub.phone %>
+            </a>
+          </p>
+         
+          <p class="flex space-x-2">
+            <% goelandClub.socialNetworks.forEach(network=> { %>
+              <a href="<%= network.link %>" target="_blank" class="hover:underline">
+                <i class="fab fa-<%= network.name %>-square fa-xl"></i>
+              </a>
+            <% }); %>
+            <span>|</span>
+            <a class="hover:underline" href="mailto:<%= goelandClub.mail %>">
+              <%= goelandClub.mail %>
+            </a>
+          </p>
+         
+        </div>
+      <% } %>
+    </div>
+
+  </div>
+</footer>

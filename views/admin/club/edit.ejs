@@ -1,0 +1,80 @@
+<div class="p-2 md:p-6 mx-auto space-y-6">
+    <button onclick="history.back()" class="top-10 mb-6 text-line-blue">
+        <i class="fas fa-arrow-left"></i> Retour
+    </button>
+
+    <h1 class="text-2xl text-center title-font mb-4">Éditer le club</h1>
+
+    <form action="/admin/club/edit/1" method="POST" enctype="multipart/form-data" novalidate
+        class="space-y-4 validate-form" id="editForm">
+
+        <div>
+            <label for="adress" class="block text-sm title-font">Adresse <span
+                class="text-line-red">*</span></label>
+            <input type="text" name="adress" id="adress" value="<%= club.adress %>" required
+                class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-line-blue focus:border-line-blue">
+            <span class="text-line-red text-sm hidden" id="nameError">Veuillez renseigner ce champ.</span>
+            
+        </div>
+
+        <div>
+            <label for="addressDetails" class="block text-sm title-font">Complément d'adresse</label>
+            <input type="text" name="addressDetails" id="addressDetails" value="<%= club.addressDetails %>"
+                class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-line-blue focus:border-line-blue">
+        </div>
+
+        <div class="w-full flex space-x-4">
+            <div class="w-1/2">
+                <label for="cp" class="block text-sm title-font">Code postal <span
+                    class="text-line-red">*</span></label>
+                <input type="text" name="cp" id="cp" value="<%= club.cp %>" required
+                    class="mt-1 w-full border border-gray-300 rounded-md p-2 focus:ring-line-blue focus:border-line-blue">
+                <span class="text-line-red text-sm hidden" id="nameError">Veuillez renseigner ce champ.</span>
+            </div>
+        
+            <div class="w-1/2">
+                <label for="city" class="block text-sm title-font">Ville <span
+                    class="text-line-red">*</span></label>
+                <input type="text" name="city" id="city" value="<%= club.city %>" required
+                    class="mt-1 w-full border border-gray-300 rounded-md p-2 focus:ring-line-blue focus:border-line-blue">
+                <span class="text-line-red text-sm hidden" id="nameError">Veuillez renseigner ce champ.</span>
+            </div>
+        </div>
+
+        <div class="w-full flex space-x-4">
+            <div class="w-1/2">
+                <label for="mail" class="block text-sm title-font">E-mail <span
+                    class="text-line-red">*</span></label>
+                <input type="text" name="mail" id="mail" value="<%= club.mail %>" required
+                    class="mt-1 w-full border border-gray-300 rounded-md p-2 focus:ring-line-blue focus:border-line-blue">
+                <span class="text-line-red text-sm hidden" id="nameError">Veuillez renseigner ce champ.</span>
+            </div>
+    
+            <div class="w-1/2">
+                <label for="phone" class="block text-sm title-font">Téléphone</label>
+                <input type="text" name="phone" id="phone" value="<%= club.phone %>"
+                    class="mt-1 w-full border border-gray-300 rounded-md p-2 focus:ring-line-blue focus:border-line-blue">
+            </div>
+        </div>
+
+        <div class="w-full flex space-x-4">
+            <div class="w-1/2">
+                <label for="imageComite" class="block text-sm title-font">Image du comité directeur</label>
+                <img src="<%= club.committee_image %>" alt="Image du comité directeur" class="mt-1 h-56 w-auto">
+                <label for="imageComiteNew" class="block text-sm title-font mt-2">Nouvelle Image (si besoin)</label>
+                <input type="file" name="imageComiteNew" id="imageComiteNew" accept="image/*"
+                    class="mt-1 block w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+            </div>
+        
+            <div class="w-1/2">
+                <label for="roomImage" class="block text-sm title-font">Image de la salle</label>
+                <img src="<%= club.room_image %>" alt="Image de la salle du club" class="mt-1 h-56 w-auto">
+                <label for="roomImageNew" class="block text-sm title-font mt-2">Nouvelle Image (si besoin)</label>
+                <input type="file" name="roomImageNew" id="roomImageNew" accept="image/*"
+                    class="mt-1 block w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+            </div>
+        </div>
+        
+        <button type="submit" class="px-6 bg-line-blue text-white py-2 rounded-lg">Mettre à jour</button>
+    </form>
+</div>

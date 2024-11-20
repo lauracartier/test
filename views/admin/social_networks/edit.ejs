@@ -1,0 +1,34 @@
+<div class="p-2 md:p-6 mx-auto">
+    <button onclick="history.back()" class="top-10 mb-6 text-line-blue">
+        <i class="fas fa-arrow-left"></i> Retour
+    </button>
+    <h1 class="text-2xl text-center title-font mb-4">Éditer un réseau</h1>
+    <form action="/admin/reseaux/edit/<%= reseau.id %>" method="POST" novalidate
+        class="space-y-4 validate-form" id="editForm">
+        <!-- Champ pour le nom -->
+        <div>
+            <label for="name" class="block text-sm title-font">Nom <span
+                    class="text-line-red">*</span></label>
+            <input type="text" name="name" id="name" value="<%= reseau.name %>" required
+                class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-line-blue focus:border-line-blue lowercase">
+            <span class="text-line-red text-sm hidden" id="nameError">Veuillez renseigner ce champ.</span>
+        </div>
+
+        <!-- Champ pour le lien -->
+        <div>
+            <label for="link" class="block text-sm title-font">Lien<span class="text-line-red">*</span> </label>
+            <input type="url" name="link" id="link" value="<%= reseau.link %>" required
+                class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-line-blue focus:border-line-blue">
+            <span class="text-line-red text-sm hidden" id="linkError">Veuillez renseigner ce champ.</span>
+        </div>
+
+        <!-- Bouton de mise à jour -->
+        <button type="submit" class="px-6 bg-line-blue text-white py-2 rounded-lg">Mettre à jour</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById("name").addEventListener("input", function () {
+        this.value = this.value.toLowerCase();
+    });
+</script>

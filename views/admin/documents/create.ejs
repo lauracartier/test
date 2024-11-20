@@ -1,0 +1,49 @@
+<div class="p-2 md:p-6 mx-auto">
+  <button onclick="history.back()" class="top-10 mb-6 text-line-blue">
+    <i class="fas fa-arrow-left"></i> Retour
+  </button>
+  <h1 class="text-2xl text-center title-font mb-4">Créer un document</h1>
+  <form action="/admin/documents/create" method="POST" novalidate enctype="multipart/form-data"
+    class="space-y-6 validate-form" id="createForm">
+
+    <!-- Champ pour le nom -->
+    <div>
+      <label for="name" class="block text-sm title-font">Nom <span class="text-line-red">*</span></label>
+      <input type="text" name="name" id="name" required
+        class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-line-blue focus:border-line-blue">
+      <span class="text-line-red text-sm hidden" id="nameError">Veuillez renseigner ce champ.</span>
+    </div>
+
+    <!-- Champ pour le fichier -->
+    <div>
+      <label for="file" class="block text-sm title-font">Fichier PDF</label>
+      <input type="file" name="file" id="file" accept="application/pdf"
+      class="mt-1 block w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+    </div>
+
+    <!-- Champ pour la description  -->
+    <div>
+      <label for="description" class="block text-sm title-font">Description</label>
+      <input type="text" name="description" id="description"
+          class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-line-blue focus:border-line-blue">
+    </div>
+
+    <!-- Bouton de mise à jour -->
+    <button type="submit" class="px-6 bg-line-blue text-white py-2 rounded-lg">Créer</button>
+  </form>
+</div>
+
+<script>
+  tinymce.init({
+    selector: '#description',
+    plugins: 'lists link textcolor underline',
+    toolbar: 'undo redo | bold italic | bullist | forecolor link | underline',
+    menubar: false,
+    color_map: [
+      'e70614', 'Red',
+      '046baf', 'Blue',
+      '374151', 'Black'
+    ],
+    textcolor_rows: 1
+  });
+</script>

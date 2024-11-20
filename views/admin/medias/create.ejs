@@ -1,0 +1,108 @@
+<div class="container mx-auto p-6">
+  <button onclick="history.back()" class="top-10 mb-6 text-line-blue">
+    <i class="fas fa-arrow-left"></i> Retour
+  </button>
+
+  <h1 class="text-2xl title-font mb-6 text-center">Créer un Nouveau Média</h1>
+
+  <!-- Onglets pour basculer entre Photo et Vidéo -->
+  <div class="sm:hidden mb-4">
+    <label for="media-tabs" class="sr-only">Sélectionner le type de média</label>
+    <select id="media-tabs" onchange="changeTab(event)"
+      class="block w-full p-2.5 bg-gray-50 border border-gray-300 rounded-lg">
+      <option value="tab-photo">Photo</option>
+      <option value="tab-video">Vidéo</option>
+    </select>
+  </div>
+  <ul class="ml-0-admin hidden text-sm title-font text-center rounded-lg shadow sm:flex">
+    <li class="w-full list-none">
+      <a href="#" onclick="changeTab(event, 'tab-photo')" id="tab-photo-link"
+        class="inline-block w-full p-4 text-white bg-line-blue border rounded-l-lg">Photo</a>
+    </li>
+    <li class="w-full list-none">
+      <a href="#" onclick="changeTab(event, 'tab-video')" id="tab-video-link"
+        class="inline-block w-full p-4 border rounded-r-lg">Vidéo</a>
+    </li>
+  </ul>
+
+  <!-- Formulaire de création pour une Photo -->
+  <div id="tab-photo" class="tab-content mt-4">
+    <form action="/admin/medias/create" method="POST" class="space-y-6 validate-form" enctype="multipart/form-data" novalidate>
+      <input type="hidden" name="mediaType" value="photo">
+
+      <div>
+        <label class="block mb-2 text-sm title-font ">Nom <span class="text-line-red">*</span></label>
+        <input type="text" name="name" class="block w-full p-2 border rounded mb-4" required>
+        <span class="text-line-red text-sm hidden" id="nameError">Veuillez renseigner ce champ.</span>
+      </div>
+
+      <label class="block mb-2 text-sm title-font ">Date <span class="text-line-red">*</span></label>
+      <input type="date" name="date_media" class="block w-full p-2 border rounded mb-4" required>
+      <span class="text-line-red text-sm hidden" id="nameError">Veuillez renseigner ce champ.</span>
+
+      <div>
+        <label class="block mb-2 text-sm title-font ">Image <span class="text-line-red">*</span></label>
+        <input type="file" name="image" accept="image/*"
+          class="mt-1 block w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:bg-blue-50 file:text-line-blue hover:file:bg-blue-100"
+          required>
+        <span class="text-line-red text-sm hidden" id="imageError">Veuillez ajouter une image valide.</span>
+      </div>
+
+      <button type="submit" class=" my-4 px-4 py-2 bg-line-blue text-white rounded">Créer</button>
+    </form>
+  </div>
+
+  <!-- Formulaire de création pour une Vidéo -->
+  <div id="tab-video" class="tab-content mt-4 hidden">
+    <form action="/admin/medias/create" method="POST" class="space-y-6 validate-form" novalidate>
+      <input type="hidden" name="mediaType" value="video">
+
+      <div>
+        <label class="block mb-2 text-sm title-font ">Nom <span class="text-line-red">*</span></label>
+        <input type="text" name="name" class="block w-full p-2 border rounded mb-4" required>
+        <span class="text-line-red text-sm hidden" id="nameError">Veuillez renseigner ce champ.</span>
+      </div>
+
+      <label class="block mb-2 text-sm title-font ">Date <span class="text-line-red">*</span></label>
+      <input type="date" name="date_media" class="block w-full p-2 border rounded mb-4" required>
+      <span class="text-line-red text-sm hidden" id="nameError">Veuillez renseigner ce champ.</span>
+
+      <div>
+        <label class="block mb-2 text-sm title-font ">Lien de la Vidéo <span class="text-line-red">*</span></label>
+        <input type="url" name="video" placeholder="https://example.com/video"
+          class="block w-full p-2 border rounded mb-4" required>
+        <span class="text-line-red text-sm hidden" id="imageError">Veuillez renseigner ce champ.</span>
+      </div>
+
+      <button type="submit" class="px-4 py-2 bg-line-blue text-white rounded ">Créer</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  function changeTab(event, tabId = null) {
+    event.preventDefault();
+
+    // Obtenez le tabId en fonction de la source de l'événement
+    if (!tabId) {
+      tabId = event.target.value; // cas du select en mobile
+    }
+
+    document.querySelectorAll('.tab-content').forEach((tab) => {
+      tab.classList.add('hidden');
+    });
+    document.getElementById(tabId).classList.remove('hidden');
+
+    document.querySelectorAll('a[id*="-link"]').forEach((link) => {
+      link.classList.remove('bg-line-blue', 'text-white');
+    });
+    if (document.getElementById(`${tabId}-link`)) {
+      document.getElementById(`${tabId}-link`).classList.add('bg-line-blue', 'text-white');
+    }
+  }
+
+  // Ajoutez un écouteur pour le select en mode mobile
+  document.getElementById('media-tabs').addEventListener('change', function (event) {
+    changeTab(event, event.target.value);
+  });
+</script>

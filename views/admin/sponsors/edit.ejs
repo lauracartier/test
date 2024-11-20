@@ -1,0 +1,37 @@
+<div class="p-2 md:p-6 mx-auto">
+    <button onclick="history.back()" class="top-10 mb-6 text-line-blue">
+        <i class="fas fa-arrow-left"></i> Retour
+    </button>
+    <h1 class="text-2xl text-center title-font mb-4">Éditer un partenaire</h1>
+    <form action="/admin/sponsors/edit/<%= sponsor.id %>" method="POST" enctype="multipart/form-data" novalidate
+        class="space-y-4 validate-form" id="editForm">
+        <!-- Champ pour le nom -->
+        <div>
+            <label for="name" class="block text-sm title-font">Nom <span
+                    class="text-line-red">*</span></label>
+            <input type="text" name="name" id="name" value="<%= sponsor.name %>" required
+                class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-line-blue focus:border-line-blue">
+            <span class="text-line-red text-sm hidden" id="nameError">Veuillez renseigner ce champ.</span>
+        </div>
+
+        <!-- Champ pour l'image actuelle et nouvelle image -->
+        <div>
+            <label for="image" class="block text-sm title-font">Image Actuelle</label>
+            <img src="<%= sponsor.image %>" alt="<%= sponsor.name %>" class="mt-1 h-24 w-auto">
+            <label for="image" class="block text-sm title-font mt-2">Nouvelle Image (si besoin)</label>
+            <input type="file" name="image" id="image" accept="image/*"
+                class="mt-1 block w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+            <span class="text-line-red text-sm hidden" id="imageError">Veuillez ajouter une image valide.</span>
+        </div>
+
+        <!-- Champ pour le lien -->
+        <div>
+            <label for="link" class="block text-sm title-font">Lien</label>
+            <input type="url" name="link" id="link" value="<%= sponsor.link %>"
+                class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-line-blue focus:border-line-blue">
+        </div>
+
+        <!-- Bouton de mise à jour -->
+        <button type="submit" class="px-6 bg-line-blue text-white py-2 rounded-lg">Mettre à jour</button>
+    </form>
+</div>

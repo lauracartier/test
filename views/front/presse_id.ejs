@@ -1,0 +1,108 @@
+<div class="container mx-auto px-4 mb-12">
+    <button onclick="history.back()" class="top-10 mb-6 text-line-blue">
+        <i class="fas fa-arrow-left"></i> Retour
+    </button>
+
+    <div class="text-center my-8">
+        <h1 class="text-lg title-font text-line-blue mb-2">
+            <%= actuality.title %>
+        </h1>
+        <p class="text-sm text-line-blue italic title-font">
+            Saison <%= actuality.season ? `${new Date(actuality.season.date_debut).getFullYear()} - ${new
+                Date(actuality.season.date_fin).getFullYear()}` : "Non défini" %>
+        </p>
+    </div>
+
+    <% if (images && images.length> 0) { %>
+        <div class="slider-container carousel-images mb-8 space-x-4">
+            <% images.forEach(image=> { %>
+                <div class="slide-item flex items-center justify-center h-[300px]">
+                    <!-- Centrage Flexbox -->
+                    <img src="<%= image %>" alt="Image de <%= actuality.title %>"
+                        class="object-contain max-h-full max-w-full rounded-lg transition-transform duration-300 transform hover:scale-105"/>
+                </div>
+                <% }); %>
+        </div>
+        <% } %>
+
+            <div class="space-y-8">
+                <div class="md:p-6">
+                    <p><%- actuality.description %></p>
+                </div>
+            </div>
+</div>
+
+<style>
+.slick-prev,
+.slick-next {
+    background: none;
+    border: none;
+    color: var(--primary-color) !important;
+    font-size: 24px;
+    z-index: 10;
+    cursor: pointer;
+    padding: 4px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 1;
+    transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+.slick-prev:focus,
+.slick-next:focus {
+    outline: none;
+    opacity: 1; 
+}
+
+.slick-prev:hover,
+.slick-next:hover {
+    color: var(--hover-color, #007bff);
+    opacity: 1;
+}
+
+.slick-prev {
+    left: -40px;
+}
+
+.slick-next {
+    right: -40px;
+}
+
+.slide-item {
+    padding: 0 10px;
+}
+
+.slick-list {
+    padding: 0 -10px;
+}
+
+.slick-track {
+    display: flex;
+    align-items: center;
+}
+
+.slick-next:before, .slick-prev:before {
+    content: none !important;
+}
+
+@media (max-width: 768px) {
+    .slick-prev {
+        left: -10px; 
+    }
+
+    .slick-next {
+        right: -10px;
+    }
+
+    .slide-item {
+        margin: 0 25px !important;
+    }
+
+    .slick-prev,
+    .slick-next {
+        font-size: 20px; 
+    }
+}
+
+</style>

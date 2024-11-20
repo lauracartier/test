@@ -1,0 +1,106 @@
+<div class="container mx-auto py-8 px-4">
+  <h1 class="text-3xl text-center mb-8 text-line-blue">Démarches d'inscription</h1>
+
+  <div class="flex flex-col lg:flex-row py-10">
+      <!-- Dossier à compléter (texte) -->
+      <section class="w-full lg:w-3/4 pr-0 lg:pr-8 mb-6 lg:mb-0">
+          <h2 class="text-2xl mb-4">Dossier à compléter</h2>
+          <p class="mb-2 italic">Tous les documents demandés sont en bas de page.</p>
+          <p class="mb-2 font-semibold">OBLIGATOIRE : Afin de pouvoir valider la licence</p>
+          
+          <% documents.forEach(document => { %>
+              <% if (document.name.includes("Dossier à compléter")) { %>
+                  <%- document.description %>
+              <% } %>
+          <% }) %>
+      </section>
+  
+      <!-- Section des icônes de téléchargement dynamiques -->
+      <section class="w-full lg:w-1/4 grid grid-cols-2 gap-4 place-items-center border-t-2 lg:border-t-0 lg:border-l-2 border-line-blue pt-6 lg:pt-0 lg:pl-4">
+          <% documents.forEach(document => { %>
+              <% if (document.file) { %>
+                  <div class="text-center">
+                      <a href="<%= document.file %>" class="title-font text-line-blue" download>
+                          <i class="fa-regular fa-file-lines fa-3x"></i>
+                          <p class="text-sm mt-3 break-words max-w-xs">
+                              <%= document.name %>
+                          </p>
+                      </a>
+                  </div>
+              <% } %>
+          <% }) %>
+      </section>
+  </div>
+
+  <!-- Tarifs 2024-2025 -->
+  <section class="mt-20">
+      <% documents.forEach(document => { %>
+          <% if (document.name.includes("Tarif")) { %>
+              <h2 class="text-2xl mb-4 text-center"><%= document.name %></h2>
+              <p class="text-center text-sm mb-4 text-line-red">
+                  <em>Le prix de l’inscription comprend la cotisation au club et le coût de la licence (loisir ou compétition).</em>
+              </p>
+              <div class="overflow-x-auto">
+                  <table class="table-auto w-full text-sm text-center border">
+                      <thead class="bg-line-blue">
+                          <tr>
+                              <th class="px-4 py-2 border text-white">Catégories</th>
+                              <th class="px-4 py-2 border text-white">Licence Promotionnelle (loisir)</th>
+                              <th class="px-4 py-2 border text-white">Licence Traditionnelle (compétition)</th>
+                              <th class="px-4 py-2 border text-white">Cotisation club</th>
+                              <th class="px-4 py-2 border text-white">Informations</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr class="border-b">
+                              <td class="px-4 py-2 border">VETERAN<br>Nés jusqu'en 1984</td>
+                              <td class="px-4 py-2 border">33.00 €</td>
+                              <td class="px-4 py-2 border">73.00 €</td>
+                              <td class="px-4 py-2 border">140 €</td>
+                              <td class="px-4 py-2 border" rowspan="8">
+                                  <%- document.description %>
+                              </td>
+                          </tr>
+                          <tr class="border-b">
+                              <td class="px-4 py-2 border">SENIOR<br>Nés du 1/1/85 au 31/12/05</td>
+                              <td class="px-4 py-2 border">33.00 €</td>
+                              <td class="px-4 py-2 border">73.00 €</td>
+                              <td class="px-4 py-2 border">140 €</td>
+                          </tr>
+                          <tr class="border-b">
+                              <td class="px-4 py-2 border">JUNIOR<br>Nés du 1/1/06 au 31/12/09</td>
+                              <td class="px-4 py-2 border">28.00 €</td>
+                              <td class="px-4 py-2 border">68.00 €</td>
+                              <td class="px-4 py-2 border">140 €</td>
+                          </tr>
+                          <tr class="border-b">
+                              <td class="px-4 py-2 border">CADET<br>Nés en 2010-2011</td>
+                              <td class="px-4 py-2 border">20.00 €</td>
+                              <td class="px-4 py-2 border">49.00 €</td>
+                              <td class="px-4 py-2 border">105 €</td>
+                          </tr>
+                          <tr class="border-b">
+                              <td class="px-4 py-2 border">MINIME<br>Nés en 2012-2013</td>
+                              <td class="px-4 py-2 border">20.00 €</td>
+                              <td class="px-4 py-2 border">49.00 €</td>
+                              <td class="px-4 py-2 border">105 €</td>
+                          </tr>
+                          <tr class="border-b">
+                              <td class="px-4 py-2 border">BENJAMIN<br>Nés en 2014-2015</td>
+                              <td class="px-4 py-2 border">20.00 €</td>
+                              <td class="px-4 py-2 border">41.00 €</td>
+                              <td class="px-4 py-2 border">105 € <br><em>70 € si 1ère inscription</em></td>
+                          </tr>
+                          <tr class="border-b">
+                              <td class="px-4 py-2 border">POUSSIN<br>Nés en 2016 et après</td>
+                              <td class="px-4 py-2 border">20.00 €</td>
+                              <td class="px-4 py-2 border">41.00 €</td>
+                              <td class="px-4 py-2 border">105 € <br><em>70 € si 1ère inscription</em></td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          <% } %>
+      <% }) %>
+  </section>
+</div>

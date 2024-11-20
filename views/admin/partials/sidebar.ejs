@@ -1,0 +1,80 @@
+<!-- En-tête mobile avec le logo et le bouton de menu burger -->
+<div class="md:hidden p-4 flex items-center justify-between">
+    <!-- Bouton de menu burger aligné à gauche -->
+    <button id="menu-toggle" class="-700 p-2 rounded text-xl">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Logo aligné à droite, masqué par défaut -->
+    <a href="/admin" id="header-logo" class="ml-auto hidden">
+        <img src="/images/goeland_logo.png" alt="Logo" class="h-10 w-auto">
+    </a>
+</div>
+
+<!-- Barre latérale -->
+<div id="sidebar" class="relative md:flex h-full w-full max-w-[20rem] flex-col bg-clip-border pt-0 md:pt-4 shadow-xl shadow-blue-gray-900/5 hidden md:block">
+
+    <!-- Logo dans la barre latérale, visible par défaut sur PC -->
+    <div id="sidebar-logo" class="p-4 mb-2 flex justify-center items-center">
+        <a href="/admin">
+            <img src="/images/goeland_logo.png" alt="Logo" class="h-16 w-auto md:h-20">
+        </a>
+    </div>
+
+    <nav class="flex min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700">
+        <div role="button"
+            class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:text-line-blue">
+            <div class="grid mr-4 place-items-center w-6">
+                <i class="fa-solid fa-people-roof text-xl "></i>
+            </div>
+            <a href="/admin/club/show/1">Le club</a>
+        </div>
+        <div role="button"
+            class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:text-line-blue">
+            <div class="grid mr-4 place-items-center w-6">
+                <i class="fa-solid fa-handshake text-xl"></i>
+            </div>
+            <a href="/admin/sponsors">Les partenaires</a>
+        </div>
+        <div role="button"
+            class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:text-line-blue">
+            <div class="grid mr-4 place-items-center w-6">
+                <i class="fa-solid fa-share-nodes text-xl"></i>
+            </div>
+            <a href="/admin/reseaux">Les réseaux sociaux</a>
+        </div>
+        <div role="button"
+            class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:text-line-blue">
+            <div class="grid mr-4 place-items-center w-6">
+                <i class="fa-solid fa-photo-video text-xl"></i>
+            </div>
+            <a href="/admin/medias">Les medias</a>
+        </div>
+        <div role="button"
+            class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:text-line-blue">
+            <div class="grid mr-4 place-items-center w-6">
+                <i class="fa-solid fa-newspaper text-xl"></i>
+            </div>
+            <a href="/admin/actualities">Les actualités</a>
+        </div>
+
+        <div role="button"
+            class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:text-line-blue">
+            <div class="grid mr-4 place-items-center w-6">
+                <i class="fa-solid fa-archive text-xl"></i>
+            </div>
+            <a href="/admin/archives">Les archives</a>
+        </div>
+
+        <div role="button"
+            class="flex items-center w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:text-line-blue">
+            <div class="grid mr-4 place-items-center w-6">
+                <i class="fa-solid fa-file-alt text-xl"></i>
+            </div>
+            <a href="/admin/documents">Les documents</a>
+        </div>
+    </nav>
+
+</div>
+
+<script src="/javascripts/admin/sidebar.js"></script>

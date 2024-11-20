@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="/stylesheets/style.css" rel="stylesheet" />
+        <link href="/stylesheets/admin.css" rel="stylesheet" />
+        <link href="/stylesheets/output.css" rel="stylesheet" />
+        <link href="/stylesheets/variables.css" rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+            rel="stylesheet" />
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        <script src="https://cdn.tiny.cloud/1/ddj662vv8azs8yix0wus8eyfebhaw3u2o0l0eaag8u54wlnn/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+        <title>
+            <%= title %>
+        </title>
+    </head>
+
+    <body class="min-h-screen flex bg-white">
+
+        <div class="flex flex-grow">
+            <!-- Barre latérale -->
+            <div class="md:w-64 bg-[#F3F3F3] md:bg-white">
+                <%- include('partials/sidebar') %>
+            </div>
+
+            <!-- Contenu principal -->
+            <main class="flex-grow items-center justify-center pr-4 md:px-14 py-4 md:py-8">
+                <%- body %>
+            </main>
+        </div>
+
+        <script src="https://kit.fontawesome.com/b04b96ab43.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+        <script src="/javascripts/admin/formValidation.js"></script>
+        <script src="/javascripts/admin/notification.js"></script>
+        <script src="/javascripts/admin/filter.js"></script>
+    </body>
+</html>

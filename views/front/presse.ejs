@@ -1,0 +1,15 @@
+<div>
+  <div id="actualities" class="my-4">
+    <h1 class="text-line-blue text-center my-4 mb-12">
+        <%= season %>
+    </h1>
+
+    <div class="w-full mx-auto">
+      <div class="w-full mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+        <% for (actuality of actualities) { %> 
+            <%- include('partials/actualitiesCard') %> <% 
+        } %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,121 @@
+<div class="mx-auto py-4 px-2 md:py-8 md:px-0">
+  <div class="p-4 text-center">
+    <h1 class="text-3xl text-line-blue title-font">Archives</h1>
+    <p class="text-lg text-gray-600">Explorez nos actualités passées</p>
+  </div>
+
+  <% const uniqueSeasons=[...new Set(actualities.map(actuality=>
+    actuality.season ? `${new Date(actuality.season.date_debut).getFullYear()} - ${new
+    Date(actuality.season.date_fin).getFullYear()}` : "Non défini"
+    ))].sort(); %>
+    <% const latestSeason=uniqueSeasons[uniqueSeasons.length - 1]; %>
+
+      <!-- Dropdown -->
+      <div class="flex justify-center mb-6" id="season-select">
+        <div class="relative w-full max-w-xs">
+          <button id="dropdownButton" onclick="toggleDropdown()"
+            class="w-full px-4 py-4 bg-line-blue text-white rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent relative flex items-center justify-center">
+            <span class="absolute left-1/2 transform -translate-x-1/2">
+              <%= latestSeason %>
+            </span>
+            <svg class="absolute right-4 w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 10 6">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M1 1l4 4 4-4" />
+            </svg>
+          </button>
+          <div id="dropdownMenu" class="absolute z-10 w-full bg-white divide-y divide-gray-100 rounded-lg shadow">
+            <ul id="listSeason" class="border-2 shadow-2xl rounded-lg border-gray-500 py-2 text-sm text-gray-700"
+              aria-labelledby="dropdownButton">
+              <% uniqueSeasons.forEach(season=> { %>
+                <li>
+                  <a href="#"
+                    onclick="filterBySeason('<%= season %>', this); updateDropdownText('<%= season %>'); setActiveItem(this);"
+                    data-season="<%= season %>"
+                    class="block px-4 py-2 text-center hover:bg-blue-100 focus:bg-line-blue focus:text-white">
+                    <%= season %>
+                  </a>
+                </li>
+                <% }); %>
+                  <li>
+                    <a href="#"
+                      onclick="filterBySeason('all', this); updateDropdownText('Toutes'); setActiveItem(this);"
+                      data-season="all"
+                      class="block px-4 py-2 text-center hover:bg-blue-100 focus:bg-line-blue focus:text-white">
+                      Toutes
+                    </a>
+                  </li>
+            </ul>
+          </div>
+
+
+        </div>
+      </div>
+
+
+      <!-- Liste des actualités -->
+      <div class="mx-auto px-2 md:px-0 md:p-6">
+        <div id="actualities" class="w-full mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+          <% for (actuality of actualities) { %>
+            <div
+              class="actuality-item relative group overflow-hidden rounded-lg flex flex-col items-center justify-center"
+              data-season="<%= actuality.season ? `${new Date(actuality.season.date_debut).getFullYear()} - ${new Date(actuality.season.date_fin).getFullYear()}` : 'Non défini' %>">
+              <%- include('partials/actualitiesCard') %>
+            </div>
+            <% }; %>
+        </div>
+      </div>
+</div>
+
+
+<script>
+  function toggleDropdown() {
+    const dropdownMenu = document.getElementById("dropdownMenu");
+    dropdownMenu.classList.toggle("hidden");
+  }
+
+  function updateDropdownText(text) {
+    document.getElementById("dropdownButton").querySelector("span").textContent = text;
+    toggleDropdown();
+  }
+
+  function setActiveItem(selectedItem) {
+    document.querySelectorAll('#listSeason a').forEach(item => item.classList.remove('bg-line-blue', 'text-white'));
+    selectedItem.classList.add('bg-line-blue', 'text-white');
+  }
+
+  function filterBySeason(season) {
+    const ACTUALITY_ITEMS = document.querySelectorAll('.actuality-item');
+    ACTUALITY_ITEMS.forEach(item => {
+      const ITEM_SEASON = item.getAttribute('data-season');
+      if (season === 'all' || ITEM_SEASON === season) {
+        item.style.display = 'flex';
+      } else {
+        item.style.display = 'none'; 
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const latestSeason = "<%= latestSeason %>";
+
+    filterBySeason(latestSeason);
+    updateDropdownText(latestSeason);
+
+    const DefaultItem = Array.from(document.querySelectorAll('#listSeason a')).find(item => item.getAttribute('data-season') === latestSeason);
+    if (DefaultItem) {
+      setActiveItem(DefaultItem);
+    }
+  });
+
+  window.addEventListener("click", function (e) {
+    const dropdownButton = document.getElementById("dropdownButton");
+    const dropdownMenu = document.getElementById("dropdownMenu");
+
+    if (!dropdownButton.contains(e.target) && !dropdownMenu.contains(e.target)) {
+      dropdownMenu.classList.add("hidden");
+    }
+  });
+
+</script>

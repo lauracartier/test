@@ -1,0 +1,13 @@
+
+<!-- Carousel container avec animation infinie -->
+<div class="sponsors-slider pb-4 flex space-x-8">
+    <% sponsors.forEach(sponsor=> { %>
+        <div class="py-2">
+            <% if (sponsor.image) { %>
+                <a href="<%= sponsor.link %>" target="_blank">
+                    <img src="<%= sponsor.image %>" alt="<%= sponsor.name %>" class="scale h-16 md:h-24 mx-4">
+                </a>
+            <% } %>
+        </div>
+    <% }); %>
+</div>

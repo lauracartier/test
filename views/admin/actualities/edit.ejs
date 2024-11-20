@@ -1,0 +1,85 @@
+<div class="p-2 md:p-8 mx-auto h-screen">
+    <button onclick="history.back()" class="top-10 mb-6 text-line-blue">
+        <i class="fas fa-arrow-left"></i> Retour
+    </button>
+    <h1 class="text-2xl title-font mb-1 text-center">Modifier une actualité</h1>
+    <p class="text-center mb-6 italic">
+        <%= actuality.season ? `Saison ${new Date(actuality.season.date_debut).getFullYear()} - ${new
+            Date(actuality.season.date_fin).getFullYear()}` : "Non défini" %>
+    </p>
+
+    <form action="/admin/actualities/edit/<%= actuality.id %>" method="POST" class="space-y-6 validate-form"
+        id="actualityForm" novalidate>
+        <input type="hidden" name="imagePaths" id="imagePaths" value='<%= JSON.stringify(existingImages) %>'>
+
+        <!-- Étape 1 : Autres champs du formulaire -->
+        <div id="step1" class="space-y-4">
+            <div>
+                <label for="title" class="block text-sm title-font">Titre <span class="text-line-red">*</span></label>
+                <input type="text" name="title" id="title" required value="<%= actuality.title %>"
+                    class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-line-blue focus:border-line-blue">
+                <span class="text-line-red text-sm hidden" id="titleError">Veuillez renseigner ce champ.</span>
+            </div>
+
+            <div>
+                <label for="subtitle" class="block text-sm title-font">Sous-titre</label>
+                <input type="text" name="subtitle" id="subtitle" value="<%= actuality.subtitle %>"
+                    class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-line-blue focus:border-line-blue">
+            </div>
+
+            <div>
+                <label for="date_actuality" class="block text-sm title-font">Date de l'actualité</label>
+                <input type="date" name="date_actuality" id="date_actuality"
+                    value="<%= actuality.date_actuality ? new Date(actuality.date_actuality).toISOString().split('T')[0] : '' %>"
+                    class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-line-blue focus:border-line-blue">
+            </div>
+
+            <div>
+                <label class="block text-sm title-font my-2">Images(s)</label>
+                <div class="dropzone" id="myAwesomeDropzone">
+                    <div class="dz-message needsclick">
+                        <span
+                            class="inline-flex justify-center items-center size-16 bg-gray-100 text-gray-800 rounded-full dark:bg-neutral-700 dark:text-neutral-200">
+                            <svg class="shrink-0 size-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" x2="12" y1="3" y2="15"></line>
+                            </svg>
+                        </span>
+                        <div class="ms-4 mt-3">
+                            <h3 class="fs-5 fw-bold text-gray-700 mb-1">Déposez les images ici ou <span
+                                    class="bg-white font-semibold text-line-blue rounded-lg decoration-2 hover:underline focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 ">parcourir</span>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-end">
+                <button type="button" class="bg-line-blue px-4 text-white py-3 rounded-lg mt-4"
+                    onclick="showDescriptionStep()">Suivant</button>
+            </div>
+        </div>
+
+        <!-- Étape 2 : Description en pleine page -->
+        <div id="step2" class="hidden">
+            <label for="description" class="mb-2 block text-sm title-font">Description <span
+                    class="text-line-red">*</span></label>
+            <textarea name="description" id="description" rows="10"
+                class="block w-full border border-gray-300 rounded-md p-2 focus:ring-line-blue focus:border-line-blue"><%= actuality.description %></textarea>
+            <span class="text-line-red text-sm hidden" id="descriptionError">Veuillez renseigner ce champ.</span>
+
+            <div class="flex justify-between mt-4">
+                <button type="button" class="bg-[#6d9fbf] px-4 text-white py-3 rounded-lg"
+                    onclick="showPreviousStep()">Précédent</button>
+                <button type="submit" class="bg-line-blue px-4 text-white py-3 rounded-lg">Mettre à jour</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.js"></script>
+<script src="/javascripts/admin/editActualities.js"></script>

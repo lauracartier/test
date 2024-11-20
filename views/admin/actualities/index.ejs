@@ -1,0 +1,124 @@
+<div class="p-2 md:p-8 mx-auto relative" x-data="notificationApp()" x-init="init()">
+    <!-- Notification Tailwind -->
+    <div x-show="open" x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 transform scale-90" x-transition:enter-end="opacity-100 transform scale-100"
+        x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 transform scale-100"
+        x-transition:leave-end="opacity-0 transform scale-90" :class="toastColor"
+        class="fixed top-4 right-4 z-50 p-4 rounded-md text-white shadow-lg flex items-center space-x-2"
+        @click="closeToast()">
+        <span class="text-xl" :class="toastIcon"></span>
+        <p x-text="toastMessage" class="title-font"></p>
+    </div>
+
+    <!-- Contenu de la page -->
+    <% if (title=="Actualités" ) { %>
+        <h1 class="text-2xl title-font mb-1 text-center">Liste des Actualités</h1>
+        <p class="text-center mb-6 italic">
+            <%= saison %>
+        </p>
+        <% } else { %>
+            <h1 class="text-2xl mb-6 title-font mb-1 text-center">Liste des Archives</h1>
+            <% } %>
+
+
+                <!-- Barre de recherche et bouton Créer une Actualité -->
+                <div class="flex justify-between items-center mb-4">
+                    <div class="relative w-3/5 md:w-1/3">
+                        <% if (title=="Actualités" ) { %>
+                            <input type="text" id="searchInput" placeholder="Rechercher..."
+                                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-line-blue"
+                                onkeyup="filterTable([1,2])">
+                            <% } else { %>
+                                <input type="text" id="searchInput" placeholder="Rechercher..."
+                                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-line-blue"
+                                    onkeyup="filterTable([0,1,2])">
+                                <% } %>
+
+                                    <span class="absolute inset-y-0 right-4 flex items-center pointer-events-none">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M21 21l-4.35-4.35M10.5 17a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13z">
+                                            </path>
+                                        </svg>
+                                    </span>
+                    </div>
+
+                    <% if (title=="Actualités" ) { %>
+                        <a href="/admin/actualities/create"
+                            class="px-6 py-3 w-32 md:w-auto bg-line-blue text-white rounded-lg hover:bg-blue-600 title-font transition">Créer
+                            une actualité</a>
+                        <% } %>
+                </div>
+
+                <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+                    <thead class="bg-gray-200">
+                        <tr>
+                            <% if (title =="Actualités" ) { %>
+                                <th class="py-2 px-4 border-b text-center cursor-pointer">Saison</th>
+                            <% } else { %>
+                                <th class="py-2 px-4 border-b text-center cursor-pointer"  onclick="sortTable(0)">Saison
+                                    <svg id="sortIcon0" class="fill-current w-4 h-4 inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M7 10l5 5 5-5H7z" />
+                                    </svg>
+                                </th>
+                            <% } %>
+
+                            <th class="py-2 px-4 border-b text-left cursor-pointer" onclick="sortTable(1)">
+                                Titre
+                                <span class="inline-block w-4 ml-2">
+                                    <svg id="sortIcon1" class="fill-current w-4 h-4 inline"
+                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M7 10l5 5 5-5H7z" />
+                                    </svg>
+                                </span>
+                            </th>
+                            <th class="py-2 px-4 border-b text-left cursor-pointer hidden md:table-cell"
+                                onclick="sortTable(2)">
+                                Date
+                                <span class="inline-block w-4 ml-2">
+                                    <svg id="sortIcon2" class="fill-current w-4 h-4 inline"
+                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M7 10l5 5 5-5H7z" />
+                                    </svg>
+                                </span>
+                            </th>
+                            <th class="py-2 px-4 border-b text-left">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="TableBody">
+                        <% actualities.forEach(actuality=> { %>
+                            <tr class="text-sm">
+                                <td class="py-2 px-4 border-b text-center">
+                                    <%= actuality.season ? `${new Date(actuality.season.date_debut).getFullYear()} -
+                                        ${new Date(actuality.season.date_fin).getFullYear()}` : "Non défini" %>
+                                </td>
+                                <td class="py-2 px-4 border-b text-left">
+                                    <%= actuality.title %>
+                                </td>
+                                <td class="py-2 px-4 border-b text-left hidden md:table-cell">
+                                    <% if (actuality.date_actuality ) { %>
+                                        <%= new Date(actuality.date_actuality).toLocaleDateString() %>
+                                            <% } else { %>
+                                                <% } %>
+                                </td>
+
+                                <td class="py-2 px-4 border-b text-left">
+                                    <div class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2">
+                                        <a href="/admin/actualities/edit/<%= actuality.id %>"
+                                            class="inline-block w-full md:w-24 px-3 py-1 bg-line-blue text-white text-center rounded hover:bg-blue-600 transition">Éditer</a>
+                                        <form action="/admin/actualities/delete/<%= actuality.id %>" method="POST"
+                                            class="inline">
+                                            <button type="submit"
+                                                class="inline-block w-full md:w-24 px-3 py-1 bg-line-red text-white text-center rounded hover:bg-red-600 transition">Supprimer</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+
+                <!-- Pagination controls -->
+                <div class="flex justify-center mt-4 space-x-2" id="paginationControls"></div>
+</div>

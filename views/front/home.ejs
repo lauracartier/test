@@ -1,0 +1,31 @@
+<div>
+
+  <div class="w-full flex">
+    <img src="/images/bandeau.png" alt="Line" class="w-full h-[175px]">
+  </div>
+
+  <div id="actualities" class="my-4">
+
+    <h1 class="text-line-blue text-center my-12 uppercase">Dernières actualités</h1>
+
+    <div class="slider-wrapper w-full mx-auto">
+
+      <div class="slider-container w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% for (actuality of actualities) { %>
+          <%- include('partials/actualitiesCard') %>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="slider-navigation text-center mt-4">
+      <span class="custom-prev-arrow inline-block"><i class="text-line-blue fas fa-chevron-left"></i></span>
+      <span class="custom-next-arrow inline-block"><i class="text-line-blue fas fa-chevron-right"></i></span>
+    </div>
+
+    <div class="flex justify-end">
+      <a href="/presse" class="px-6 text-line-blue underline title-font ">Voir
+        plus</a>
+    </div>
+  </div>
+
+</div>

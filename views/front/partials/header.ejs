@@ -1,0 +1,103 @@
+<header class="sticky top-0 h-full border-b-2 border-line-blue z-50">
+  <div class="container py-3 mx-auto flex items-center justify-between">
+    <!-- Logo (taille réduite sur mobile) -->
+    <div class="flex items-center space-x-2">
+      <a href="/">
+        <img src="/images/goeland_logo.png" alt="Logo" class="h-16 px-2 w-auto lg:h-20">
+      </a>
+    </div>
+
+    <!-- Bouton menu burger visible uniquement sur mobile -->
+    <div class="lg:hidden pr-4">
+      <button id="burgerButton" class="-700 focus:outline-none">
+        <!-- Icône burger -->
+        <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Navigation (caché sur mobile) -->
+    <nav id="navMenu" class="hidden lg:flex items-center space-x-24 title-font">
+      <!-- Dropdown pour Club -->
+      <div class="relative group">
+        <div class="text-lg inline-block pb-2">Club
+          <span
+            class="absolute bottom-0 left-0 w-1/2 h-1 bg-line-blue transition-all duration-200 group-hover:w-5/6 group-hover:bg-line-red"></span>
+        </div>
+        <div
+          class="absolute top-full left-[-17px] hidden group-hover:flex flex-col bg-white shadow-xl rounded-lg py-2 w-48 z-10">
+          <a href="/historique" class="block px-4 py-2 hover:bg-gray-100">Historique</a>
+          <a href="/inscription" class="block px-4 py-2 hover:bg-gray-100">Inscription</a>
+          <a href="/joueurs" class="block px-4 py-2 hover:bg-gray-100">Joueurs</a>
+          <a href="/comite" class="block px-4 py-2 hover:bg-gray-100">Comité directeur</a>
+        </div>
+      </div>
+
+      <!-- Dropdown pour Actualités -->
+      <div class="relative group">
+        <div class="text-lg inline-block pb-2">Actualités
+          <span
+            class="absolute bottom-0 left-0 w-1/2 h-1 bg-line-blue transition-all duration-200 group-hover:w-5/6 group-hover:bg-line-red"></span>
+        </div>
+        <div
+          class="absolute top-full left-[-17px] hidden group-hover:flex flex-col bg-white shadow-xl rounded-lg py-2 w-48 z-10">
+          <a href="/presse" class="block px-4 py-2 hover:bg-gray-100">Presse</a>
+          <a href="/medias" class="block px-4 py-2 hover:bg-gray-100">Médias</a>
+          <a href="/archives" class="block px-4 py-2 hover:bg-gray-100">Archives</a>
+        </div>
+      </div>
+
+      <!-- Liens simples sans menu déroulant -->
+      <a href="/championnat" class="text-lg inline-block pb-2 relative group">Championnat
+        <span
+          class="absolute bottom-0 left-0 w-1/2 h-1 bg-line-blue transition-all duration-200 group-hover:w-5/6 group-hover:bg-line-red"></span>
+      </a>
+      <a href="/contact" class="text-lg inline-block pb-2 relative group">Contact
+        <span
+          class="absolute bottom-0 left-0 w-1/2 h-1 bg-line-blue transition-all duration-200 group-hover:w-5/6 group-hover:bg-line-red"></span>
+      </a>
+    </nav>
+  </div>
+
+  <!-- Menu mobile (overlay) -->
+  <div id="mobileMenu"
+    class="fixed inset-0 bg-white/95 bg-opacity-95 z-50 hidden lg:hidden flex flex-col items-center justify-center space-y-4">
+    <!-- Bouton de fermeture en haut à droite -->
+    <button id="closeButton" class="absolute top-4 right-4">
+      <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    <!-- Menu mobile avec Club et sous-menus -->
+    <div class="text-lg text-line-blue mt-4 title-font">Club</div>
+    <a href="/historique" class="text-lg">Historique</a>
+    <a href="/inscription" class="text-lg">Inscription</a>
+    <a href="/joueurs" class="text-lg">Joueurs</a>
+    <a href="/comite" class="text-lg">Comité directeur</a>
+
+    <!-- Sous-menu Actualités avec indentation -->
+    <div class="text-lg text-line-blue mt-4 title-font">Actualités</div>
+    <a href="/presse" class="text-lg">Presse</a>
+    <a href="/medias" class="text-lg">Médias</a>
+    <a href="/archives" class="text-lg">Archives</a>
+
+    <a href="/championnat" class="text-lg mt-4 text-line-blue title-font">Championnat</a>
+    <a href="/contact" class="text-lg text-line-blue title-font">Contact</a>
+  </div>
+</header>
+
+<script>
+  const BURGER_BTN = document.getElementById("burgerButton");
+  const CLOSE_BTN = document.getElementById("closeButton");
+  const MOBILE_MENU = document.getElementById("mobileMenu");
+
+  BURGER_BTN.addEventListener("click", () => {
+    MOBILE_MENU.classList.toggle("hidden");
+  });
+
+  CLOSE_BTN.addEventListener("click", () => {
+    MOBILE_MENU.classList.add("hidden");
+  });
+</script>

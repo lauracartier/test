@@ -1,0 +1,74 @@
+<div class="container mx-auto p-6">
+    <button onclick="history.back()" class="top-10 mb-6 text-line-blue">
+        <i class="fas fa-arrow-left"></i> Retour
+    </button>
+
+    <h1 class="text-2xl title-font mb-6 text-center">Modifier le Média</h1>
+
+    <!-- Formulaire de modification pour une Photo -->
+    <div id="tab-photo" class="tab-content mt-4 <%= media.image ? '' : 'hidden' %>">
+        <form action="/admin/medias/edit/<%= media.id %>" method="POST" enctype="multipart/form-data" class="space-y-6 validate-form" novalidate>
+            <input type="hidden" name="mediaType" value="photo">
+
+            <div>
+                <label class="block mb-2 text-sm title-font ">Nom <span class="text-line-red">*</span></label>
+                <input type="text" name="name" value="<%= media.name %>" class="block w-full p-2 border rounded mb-4"
+                    required>
+                <span class="text-line-red text-sm hidden" id="nameError">Veuillez renseigner ce champ.</span>
+            </div>
+
+            <label class="block mb-2 text-sm title-font ">Date <span class="text-line-red">*</span></label>
+            <input type="date" name="date_media"
+                value="<%= media.date_media ? media.date_media.toISOString().slice(0, 10) : '' %>"
+                class="block w-full p-2 border rounded mb-4" required>
+            <span class="text-line-red text-sm hidden" id="nameError">Veuillez renseigner ce champ.</span>
+
+
+            <label class="block mb-2 text-sm title-font ">Image actuelle</label>
+            <% if (media.image) { %>
+                <img src="<%= media.image %>" alt="Current Image" class="w-32 h-auto mb-4">
+            <% } %>
+
+
+            <div>
+                <label class="block mb-2 text-sm title-font ">Nouvelle Image (facultatif)</label>
+                <input type="file" name="image" accept="image/*"
+                    class="mt-1 block w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:bg-blue-50 file:text-line-blue hover:file:bg-blue-100">
+                <span class="text-line-red text-sm hidden" id="imageError">Veuillez ajouter une image valide.</span>
+            </div>
+
+            <button type="submit"
+                class=" my-4 px-4 py-2 bg-line-blue text-white rounded">Mettre à jour</button>
+        </form>
+    </div>
+
+    <!-- Formulaire de modification pour une Vidéo -->
+    <div id="tab-video" class="tab-content mt-4 <%= media.video ? '' : 'hidden' %>">
+        <form action="/admin/medias/edit/<%= media.id %>" method="POST" novalidate class="space-y-6 validate-form">
+            <input type="hidden" name="mediaType" value="video">
+
+            <div>
+                <label class="block mb-2 text-sm title-font ">Nom <span class="text-line-red">*</span></label>
+                <input type="text" name="name" value="<%= media.name %>" class="block w-full p-2 border rounded mb-4"
+                    required>
+                <span class="text-line-red text-sm hidden" id="nameError">Veuillez renseigner ce champ.</span>
+            </div>
+
+            <label class="block mb-2 text-sm title-font ">Date <span class="text-line-red">*</span></label>
+            <input type="date" name="date_media"
+                value="<%= media.date_media ? media.date_media.toISOString().slice(0, 10) : '' %>"
+                class="block w-full p-2 border rounded mb-4" required>
+            <span class="text-line-red text-sm hidden" id="nameError">Veuillez renseigner ce champ.</span>
+
+            <div>
+                <label class="block mb-2 text-sm title-font ">Lien de la Vidéo<span
+                        class="text-line-red">*</span></label>
+                <input type="url" name="video" value="<%= media.video %>" placeholder="https://example.com/video"
+                    class="block w-full p-2 border rounded mb-4" required>
+                    <span class="text-line-red text-sm hidden" id="imageError">Veuillez renseigner ce champ.</span>
+            </div>
+
+            <button type="submit" class="px-4 py-2 bg-line-blue text-white rounded">Mettre à jour</button>
+        </form>
+    </div>
+</div>

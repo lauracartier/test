@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" href="/images/goeland-logo-no-text.png">
+  <link href="/stylesheets/style.css" rel="stylesheet" />
+  <link href="/stylesheets/output.css" rel="stylesheet" />
+  <link href="/stylesheets/variables.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet" />
+  <title>
+    <%= title %>
+  </title>
+</head>
+
+<body class="min-h-screen flex flex-col bg-white">
+  <%- include('partials/header') %>
+
+    <main class="flex items-center justify-center px-2 md:px-14 py-8">
+      <%- body %>
+    </main>
+
+    <%- include('partials/sponsors') %>
+
+    <%- include('partials/footer') %>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+
+    <script type="text/javascript" src="/javascripts/front/sponsors.js"></script>
+    <script type="text/javascript" src="/javascripts/front/actualitiesCard.js"></script>
+    <script type="text/javascript" src="/javascripts/front/presseId.js"></script>
+
+
+    <script src="https://kit.fontawesome.com/b04b96ab43.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

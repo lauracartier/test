@@ -1,0 +1,24 @@
+# Ignorer le dossier node_modules et certains fichiers spécifiques
+node_modules/
+.env
+package-lock.json
+bin
+/stylesheets/output.css
+public/stylesheets/output.css
+
+
+public/uploads/sponsors/*
+!public/uploads/sponsors/.gitkeep
+
+
+public/uploads/club/*
+!public/uploads/club/.gitkeep
+
+public/uploads/documents/*
+!public/uploads/documents/.gitkeep
+
+public/uploads/medias/*
+!public/uploads/medias/.gitkeep
+
+public/uploads/actualities/*
+!public/uploads/actualities/.gitkeep

@@ -1,0 +1,26 @@
+<div class="slide-item mx-4 flex flex-col h-full">
+    <div class="pt-4 p-8 bg-[#F3F3F3] text-base pb-12 mb-4 rounded-lg flex-grow h-card">
+        <% if (title == "Archives - Goélands" ) { %>
+            <a href="/archives/<%= actuality.id %>"><%- actuality.description %></a>
+        <% } else { %>
+            <a href="/presse/<%= actuality.id %>"><%- actuality.description %></a>
+        <% } %>
+    </div>
+    <div class="flex flex-col items-center justify-center mt-[-40px]">
+        <img src="/images/goeland-logo-no-text.png" alt="Logo Goelands Biarritz" class="w-16 mx-auto">
+        <h3 class="text-lg title-font">
+            <%= actuality.title %>
+        </h3>
+
+        <% if (title == "Archives - Goélands") { %>
+            <p class="text-sm text-line-blue italic title-font"><%= actuality.season ? `${new Date(actuality.season.date_debut).getFullYear()} - ${new
+                Date(actuality.season.date_fin).getFullYear()}` : "Non défini" %></p>
+        <% } %>
+
+        <% if (actuality.subtitle) { %>
+            <p class="text-sm mb-4 text-center"><%= actuality.subtitle %> </p>
+        <% } else { %>
+            <p class="text-sm mb-4 invisible"><%= actuality.title %></p>
+        <% } %>
+    </div>
+</div>

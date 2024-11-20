@@ -1,0 +1,182 @@
+<div class="mx-auto py-4 px-2 md:py-8 md:px-4">
+    <div class="p-4 text-center">
+        <h1 class="text-3xl text-line-blue title-font">Galerie</h1>
+        <p class="text-lg text-gray-600">Explorez nos photos et vidéos</p>
+    </div>
+
+        <% const uniqueYears=[...new Set(medias.map(media=> new Date(media.date_media).getFullYear()))].sort((a, b) => a
+            - b); %>
+            <% const latestYear=uniqueYears[uniqueYears.length - 1]; %>
+                   
+    <!-- Dropdown de tri  -->
+    <div class="flex justify-center mb-6" id="year-select">
+        <div class="relative w-full max-w-xs">
+            <button id="dropdownButton" onclick="toggleDropdown()"
+                class="w-full px-4 py-4 bg-line-blue text-white rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent relative flex items-center justify-center">
+                <span class="absolute left-1/2 transform -translate-x-1/2">Tous</span>
+                <svg class="absolute right-4 w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M1 1l4 4 4-4" />
+                </svg>
+            </button>
+            <div id="dropdownMenu" class="absolute z-10 w-full bg-white divide-y divide-gray-100 rounded-lg shadow">
+                <ul id="listDate" class="border-2 shadow-2xl rounded-lg border-gray-500 py-2 text-sm text-gray-700"
+                    aria-labelledby="dropdownButton">
+                    <% uniqueYears.forEach(year=> { %>
+                        <li>
+                            <a href="#"
+                                onclick="filterByYear(<%= year %>, this); updateDropdownText('<%= year %>'); setActiveItem(this);"
+                                class="block px-4 py-2 text-center hover:bg-blue-100 focus:bg-line-blue focus:text-white">
+                                <%= year %>
+                            </a>
+                        </li>
+                        <% }) %>
+                            <li>
+                                <a href="#"
+                                    onclick="filterByYear('all', this); updateDropdownText('Tous'); setActiveItem(this);"
+                                    class="block px-4 py-2 text-center hover:bg-blue-100 focus:bg-line-blue focus:text-white">
+                                    Tous
+                                </a>
+                            </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Galerie -->
+    <div class="mx-auto px-2 md:p-6">
+        <div id="media-gallery" class="w-full mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+            <% const sortedMedias=medias.sort((a, b)=> new Date(b.date_media) - new Date(a.date_media)); %>
+                <% sortedMedias.forEach(media=> { %>
+                    <% const formattedDate=new Date(media.date_media).toLocaleDateString("fr-FR"); %>
+                        <div class="media-item relative group overflow-hidden bg-black rounded-lg flex flex-col items-center justify-center"
+                            data-year="<%= new Date(media.date_media).getFullYear() %>">
+                            <% if (media.image) { %>
+                                <img src="<%= media.image %>" alt="<%= media.name %>"
+                                    class="w-full h-auto mt-4 object-contain transition-transform duration-300 transform group-hover:scale-105 rounded-lg cursor-pointer"
+                                    onclick="openModal('<%= media.image %>', '<%= media.name %>', '<%= formattedDate %>')" />
+                                <% } else if (media.video) { %>
+
+                                <% let embedUrl; if (media.video.includes("youtube.com")) { // Récupération de l'ID de la vidéo YouTube const
+                                    videoIdMatch=media.video.match(/v=([a-zA-Z0-9_-]+)/); embedUrl=videoIdMatch ?
+                                    `https://www.youtube.com/embed/${videoIdMatch[1]}` : media.video; %>
+                                    <iframe class="w-full h-64 object-cover" src="<%= embedUrl %>" title="<%= media.name %>" frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
+                                        loading="lazy"></iframe>
+                                    <% } else if (media.video.includes("dailymotion.com")) { // Lien vers la vidéo Dailymotion %>
+                                        <a href="<%= media.video %>" target="_blank" class="p-4">
+                                            <i class="fa-brands fa-dailymotion text-white text-9xl"></i>
+                                        </a>
+
+                                        <div class="text-center text-white mb-2">
+                                            <span>
+                                                <%= media.name %>
+                                            </span>
+                                        </div>
+
+                                    <% } %>
+
+                                            
+                                        <% } %>
+                                        <% if (media.image) { %>
+                                            <!-- Titre sous chaque média pour tous les écrans -->
+                                            <div class="text-center text-white mb-2">
+                                                <span>
+                                                    <%= media.name %>
+                                                </span>
+                                            </div>
+                                            <% } %>
+                        </div>
+                        <% }) %>
+        </div>
+    </div>
+
+    <!-- Modal pour afficher l'image en grand avec le titre -->
+    <div id="imageModal" class="fixed inset-0 hidden bg-black bg-opacity-75 flex items-center justify-center z-50"
+        onclick="closeModalOnOutsideClick(event)">
+        <div class="relative max-w-screen-lg w-full mx-4 md:mx-0 flex flex-col items-center" id="modalContent">
+            <button onclick="closeModal()" class="absolute top-2 right-2 text-white"><i
+                    class="fa-solid fa-xmark fa-2xl"></i></button>
+            <img id="modalImage" src="" alt="Image agrandie" class="w-full max-h-[80vh] object-contain rounded-lg">
+            <div id="modalTitle" class="text-center text-white"></div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function toggleDropdown() {
+        const dropdownMenu = document.getElementById("dropdownMenu");
+        dropdownMenu.classList.toggle("hidden");
+    }
+
+    function updateDropdownText(text) {
+        document.getElementById("dropdownButton").querySelector("span").textContent = text;
+        toggleDropdown();
+    }
+
+    function setActiveItem(selectedItem) {
+        document.querySelectorAll('#listDate a').forEach(item => item.classList.remove('bg-line-blue', 'text-white'));
+        selectedItem.classList.add('bg-line-blue', 'text-white');
+    }
+
+    function filterByYear(year, button) {
+        const MEDIA_ITEM = document.querySelectorAll('.media-item');
+        MEDIA_ITEM.forEach(item => {
+            const ITEM_YEAR = item.getAttribute('data-year');
+            if (year === 'all' || ITEM_YEAR === String(year)) {
+                item.style.display = 'flex';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+
+    window.addEventListener("click", function (e) {
+        const dropdownButton = document.getElementById("dropdownButton");
+        const dropdownMenu = document.getElementById("dropdownMenu");
+
+        if (!dropdownButton.contains(e.target) && !dropdownMenu.contains(e.target)) {
+            dropdownMenu.classList.add("hidden");
+        }
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const latestYear = "<%= latestYear %>";
+
+        filterByYear(latestYear);
+        updateDropdownText(latestYear);
+
+        const DefaultItem = Array.from(document.querySelectorAll('#listDate a')).find(item => item.textContent.trim() === latestYear);
+        if (DefaultItem) {
+            setActiveItem(DefaultItem);
+        }
+
+    });
+
+    function openModal(imageUrl, title, date) {
+        // Ne pas ouvrir le modal sur mobile
+        if (window.innerWidth < 768) {
+            return;
+        }
+        const modal = document.getElementById("imageModal");
+        const modalImage = document.getElementById("modalImage");
+        const modalTitle = document.getElementById("modalTitle");
+        modalImage.src = imageUrl;
+        modalTitle.textContent = `${title} - ${date}`;
+        modal.classList.remove("hidden");
+    }
+
+    function closeModal() {
+        const modal = document.getElementById("imageModal");
+        modal.classList.add("hidden");
+    }
+
+    function closeModalOnOutsideClick(event) {
+        const modalContent = document.getElementById("modalContent");
+        if (!modalContent.contains(event.target)) {
+            closeModal();
+        }
+    }
+</script>
