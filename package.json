@@ -3,8 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./app.js"
-  },
+  "build:css": "npx tailwindcss -i ./public/stylesheets/tailwind.css -o ./public/stylesheets/output.css",
+  "start": "node ./app.js",
+  "build": "npm run build:css"
+},
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
