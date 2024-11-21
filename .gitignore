@@ -1,6 +1,5 @@
 # Ignorer le dossier node_modules et certains fichiers spécifiques
 node_modules/
-.env
 package-lock.json
 bin
 /stylesheets/output.css
